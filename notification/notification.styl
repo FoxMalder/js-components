@@ -1,0 +1,35 @@
+.notification
+	color: #fff;
+	opacity: 0;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: 0;
+	font-size: 17px;
+	line-height: 1em;
+	text-align: center;
+	z-index: -1;
+	height: 0;
+	transform: translateY(-40px);
+	transition: all .5s ease-out;
+	&--error
+		background-color: #e50133;
+	&--success
+		background-color: #63b551;
+	&--visible
+		opacity: 1;
+		z-index: 303;
+		padding: 9px 0;
+		height: auto;
+		transform: translateY(0px);
+
+	&--panaled
+		top: 143px;
+	&--folded
+		top: 39px;
+
+
+@media screen and (max-width: 1060px)
+	.notification
+		top: 55px;
