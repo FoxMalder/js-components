@@ -65,7 +65,7 @@ class BXNoticeDecorator {
   expanded () {
     let panel = document.getElementById('bx-panel');
 
-    return panel.classList.contains('bx-panel-folded');
+    return (!!panel) ? panel.classList.contains('bx-panel-folded') : false;
   }
 
   panaled () {
