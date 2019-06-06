@@ -1,58 +1,71 @@
 class Notice {
-  constructor (message, type = 'success') {
+  constructor (message, type = 'success', autoClose = 2300) {
     this.message = message;
     this.type = type;
+    this.autoClose = autoClose;
     this.box = document.createElement('div');
   }
 
   show () {
     this.box.classList.add('notification', 'notification--' + this.type);
     document.body.insertBefore(this.box, document.body.firstChild);
-    this.box.innerHTML = this.message;
+    this.box.innerHTML = `<span class="notification__message">${this.message}</span><span class="notification__close"></span>`;
     setTimeout(() => {
       this.box.classList.add('notification--visible');
+      this.bindEvents();
     }, 10);
-    this.remove();
+
+    if (this.autoClose) {
+      setTimeout(() => {
+        this.remove();
+      }, this.autoClose);
+    }
   }
 
-  success() {
+  success () {
     this.type = 'success';
     this.show();
   }
 
-  error() {
+  error () {
     this.type = 'error';
     this.show();
   }
 
   remove () {
+    this.box.classList.remove('notification--visible');
     setTimeout(() => {
-      this.box.classList.remove('notification--visible');
-    }, 2300);
+      this.box.remove();
+    }, 200);
   }
+
+  bindEvents () {
+    document.querySelector('.notification__close').addEventListener('click', this.remove.bind(this));
+  }
+
 }
 
 class BXNoticeDecorator {
-  constructor (notice){
+  constructor (notice) {
     this.notice = notice;
   }
 
-  show() {
+  show () {
     this.notice.show();
     this.additional();
   }
 
-  success() {
+  success () {
     this.notice.success();
     this.additional();
   }
 
-  error() {
+  error () {
     this.notice.error();
     this.additional();
   }
 
-  additional(){
+  additional () {
     if (this.panaled()) {
       this.notice.box.classList.add('notification--panaled')
     }

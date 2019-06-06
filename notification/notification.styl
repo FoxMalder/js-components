@@ -5,29 +5,63 @@
 	top: 0;
 	left: 0;
 	width: 100%;
-	padding: 0;
 	font-size: 17px;
-	line-height: 1em;
-	text-align: center;
+	line-height: 1.5;
+	text-align: left;
 	z-index: -1;
 	height: 0;
-	transform: translateY(-40px);
-	transition: all .5s ease-out;
+	transform: translateY(-100%);
+	transition: all .5s ease-in-out;
+	display: flex;
+	justify-content: center;
+	padding: 9px 40px;
+
 	&--error
 		background-color: #e50133;
+
 	&--success
 		background-color: #63b551;
+
 	&--visible
 		opacity: 1;
 		z-index: 303;
-		padding: 9px 0;
 		height: auto;
-		transform: translateY(0px);
+		transform: translateY(0%);
 
 	&--panaled
 		top: 143px;
+
 	&--folded
 		top: 39px;
+
+	&__message
+		margin-right: 20px;
+
+	&__close
+		position: absolute;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		align-self: center;
+		right: 15px;
+		border: 2px solid #fff;
+		border-radius: 50%;
+		width: 25px;
+		height: 25px;
+		text-align: center;
+		justify-content: center;
+		font-family: Helvetica , Verdana, Arial, sans-serif;
+		transition: transform ease-in-out 0.5s;
+		cursor: pointer;
+
+		&:after
+			content: 'x';
+			position: absolute;
+			top: -3px;
+
+		&:hover
+			transform: rotate(180deg);
+
 
 
 @media screen and (max-width: 1060px)
