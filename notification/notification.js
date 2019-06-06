@@ -1,13 +1,20 @@
 class Notice {
-  constructor (message, type = 'success', autoClose = 2300) {
+  constructor (message, options = {}) {
     this.message = message;
-    this.type = type;
-    this.autoClose = autoClose;
+    this.options = options;
+    if (!('autoClose' in this.options)){
+      this.options.autoClose = 2300;
+    }
+
+    if (!('type' in this.options)){
+      this.options.type = 'success';
+    }
+
     this.box = document.createElement('div');
   }
 
   show () {
-    this.box.classList.add('notification', 'notification--' + this.type);
+    this.box.classList.add('notification', 'notification--' + this.options.type);
     document.body.insertBefore(this.box, document.body.firstChild);
     this.box.innerHTML = `<span class="notification__message">${this.message}</span><span class="notification__close"></span>`;
     setTimeout(() => {
@@ -15,20 +22,20 @@ class Notice {
       this.bindEvents();
     }, 10);
 
-    if (this.autoClose) {
+    if (this.options.autoClose) {
       setTimeout(() => {
         this.remove();
-      }, this.autoClose);
+      }, this.options.autoClose);
     }
   }
 
   success () {
-    this.type = 'success';
+    this.options.type = 'success';
     this.show();
   }
 
   error () {
-    this.type = 'error';
+    this.options.type = 'error';
     this.show();
   }
 
